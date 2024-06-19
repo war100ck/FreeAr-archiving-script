@@ -1,27 +1,53 @@
-Данный скрипт пакетной обработки предназначен для упаковки файлов с использованием FreeArc с выбранными параметрами архивации и уровнями сжатия. Вот пошаговое объяснение кода:
+==================================================
+Batch Script for File Archiving with FreeArc
+==================================================
 
-1. Сначала задается кодировка консоли и указывается путь к исполняемому файлу FreeArc.
-   
-2. Затем пользователю предлагается ввести пути к папкам для архивов и файлов.
+This batch script automates the process of archiving files using FreeArc with user-selected compression parameters and levels.
 
-3. Введенные пути проверяются на наличие обратного слеша в конце и удаляются, если таковой имеется.
+## Usage
 
-4. Проверяется существование указанных папок. Если папки не существуют, скрипт выдает сообщение об ошибке и завершает работу.
+1. **Setup**
 
-5. Пользователю предлагается выбрать размер архива из предопределенных вариантов.
+   - Ensure your console supports UTF-8 encoding (`chcp 65001` is set to handle Unicode characters).
+   - Specify the path to the FreeArc executable (`FreeArcPath`) in the script.
 
-6. Выбранный размер преобразуется в байты для дальнейшего использования в процессе архивации.
+2. **Input Paths**
 
-7. Пользователю предлагается выбрать уровень сжатия из заданных опций.
+   - Users are prompted to enter paths for the archive folder (`ArchivePath`) and the folder containing files to be archived (`FilesPath`).
+   - The script removes trailing backslashes from user-input paths to standardize them.
 
-8. Выбранный уровень сжатия устанавливается в скрипте для передачи соответствующего флага архиватору FreeArc.
+3. **Validation**
 
-9. Запускается упаковка файлов с использованием выбранных параметров архивации и уровней сжатия для каждой подпапки в указанной папке с файлами.
+   - Checks if the specified folders exist. If not, an error message is displayed, and the script terminates.
 
-10. Сжатые файлы перемещаются из временной папки в основную папку с архивами.
+4. **Archive Size Selection**
 
-11. Удаляется временная папка, используемая для хранения промежуточных архивов.
+   - Users select the desired archive size from predefined options (2GB, 2.5GB, 4.5GB, 5GB, 7GB).
+   - The selected size is converted to bytes (`ArchiveSizeBytes`) for use in the archiving process.
 
-12. Выводится информация о завершении процесса упаковки и перемещения файлов.
+5. **Compression Level Selection**
 
-Итак, данный скрипт автоматизирует процесс упаковки файлов с выбранными параметрами сжатия с использованием FreeArc для обеспечения удобства и эффективности работы с архивами.
+   - Users choose a compression level from options provided (Maximum, Very High, High (default), Medium, Low, Very Low (Fast)).
+   - The selected compression level determines the compression flag (`CompressionFlag`) passed to FreeArc.
+
+6. **Archiving Process**
+
+   - Files within each subfolder of `FilesPath` are archived using the chosen parameters.
+   - FreeArc compresses files into temporary archives (`data-<subfolder>.arc`).
+
+7. **Finalization**
+
+   - Temporary archives are moved from the temporary directory to the main archive directory (`ArchivePath`).
+   - The temporary directory is then deleted to clean up intermediate files.
+
+8. **Completion**
+
+   - The script concludes by informing the user about the completion of the archiving and file movement process.
+
+## Usage Notes
+
+- This script simplifies the task of creating archives with customizable compression settings using FreeArc.
+- Ensure paths are correctly entered to avoid errors during execution.
+- Choose appropriate archive size and compression level based on your specific requirements.
+
+==================================================
